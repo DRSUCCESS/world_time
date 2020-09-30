@@ -14,23 +14,32 @@ class WorldTime {
   //Has to promise (as in js) the function getTime() async for future use
   Future<void> getTime() async  {
 
-    //make the request
-    Response response = await get('http://worldtimeapi.org/api/timezone/$url');
-    Map data = jsonDecode(response.body);
-    // print(data);
+    try{
 
-    //  get properties from data
-    String datetime = data['datetime'];
-    String offset = data['utc_offset'].substring(1, 3);
-    // print(datetime);
-    // print(offset);
+      //make the request
+      Response response = await get('http://worldtimeapi.org/api/timezone/$url');
+      Map data = jsonDecode(response.body);
+      // print(data);
 
-    //  create a DateTime object
-    DateTime now = DateTime.parse(datetime);//convert to a DateTime object
-    now = now.add(Duration(hours:  int.parse(offset)));
+      //  get properties from data
+      String datetime = data['datetime'];
+      String offset = data['utc_offset'].substring(1, 3);
+      // print(datetime);
+      // print(offset);
 
-    // set the time property to string format
-    time = now.toString();
+      //  create a DateTime object
+      DateTime now = DateTime.parse(datetime);//convert to a DateTime object
+      now = now.add(Duration(hours:  int.parse(offset)));
+
+      // set the time property to string format
+      time = now.toString();
+
+    }
+    catch (e) {
+      print('caught error: $e');
+      time = 'Could not get time data';
+    }
+
 
   }
 
