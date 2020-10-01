@@ -20,17 +20,40 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       body: SafeArea(
-          child: Column(
-            children: <Widget> [
-              FlatButton.icon(
-                onPressed:(){
-                  //push the context of /location, /home etc.. on top of each stack as new ui
-                  Navigator.pushNamed(context, '/location');
-                },
-                label: Text('Edit Location'),
-                icon: Icon(Icons.edit_location),
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+            child: Column(
+              children: <Widget> [
+                FlatButton.icon(
+                  onPressed:(){
+                    //push the context of /location, /home etc.. on top of each stack as new ui
+                    Navigator.pushNamed(context, '/location');
+                  },
+                  label: Text('Edit Location'),
+                  icon: Icon(Icons.edit_location),
+                ),
+                SizedBox(height:20.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      data['location'],
+                      style: TextStyle(
+                        letterSpacing: 2.0,
+                        fontSize: 28.0,
+                      )
+                    )
+                  ],
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  data['time'],
+                  style: TextStyle(
+                    fontSize: 66.0
+                  )
+                ),
+              ],
+            ),
           ),
       ),
     );
