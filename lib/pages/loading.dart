@@ -8,17 +8,17 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-  String time = 'loading...';
-
   //create a new instance of getTime()
   //to use 'await'-keyword inside a function the function has to be declared as async
   void setupWorldTime() async {
     WorldTime instance = WorldTime(location: 'Lagos', flag: 'nigeria.png', url: 'Africa/Lagos');
     await instance.getTime(); //must be used inside async function
-    print(instance.time);
-    setState(() {
-      time = instance.time;
-    });
+    Navigator.pushReplacementNamed(context, '/home', arguments: {
+      'location' : instance.location,
+      'flag' : instance.flag,
+      'time' : instance.time,
+    });// push the name-home and replace the loading router
+
   }
 
 
@@ -34,7 +34,7 @@ class _LoadingState extends State<Loading> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(50.0),
-        child: Text(time),
+        child: Text('Loading...'),
       ),
     );
   }
