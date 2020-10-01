@@ -19,6 +19,7 @@ class _LoadingState extends State<Loading> {
       'location' : instance.location,
       'flag' : instance.flag,
       'time' : instance.time,
+      'isDaytime' : instance.isDaytime,
     });// push the name-home and replace the loading router
 
   }
