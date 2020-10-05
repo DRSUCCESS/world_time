@@ -7,20 +7,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  Map data = {};
+  Map data = {}; // initialize an empty data map function
 
   @override
   Widget build(BuildContext context) {
 
     //receive the arguments from loading/ home_context
     //set the argument as Map function
-    data = ModalRoute.of(context).settings.arguments;
-    print(data);
+    //if data isNotEmpty return the data received from setState dynamic result
+    //else triggers a ModalRoute context settings
+    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
+    // print(data);
 
     //set background
     String bgImage = data['isDaytime'] ? 'day.png' : 'night.png';
     Color bgColor = data['isDaytime'] ? Colors.blue : Colors.indigo[700];
-
 
 
     return Scaffold(
@@ -38,9 +39,18 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: <Widget> [
                   FlatButton.icon(
-                    onPressed:(){
+                    onPressed:() async {
                       //push the context of /location, /home etc.. on top of each stack as new ui
-                      Navigator.pushNamed(context, '/location');
+                      dynamic result = await Navigator.pushNamed(context, '/location');
+                      //setState update the data and triggers to rebuild
+                      setState(() {
+                        data = {
+                          'time' : result['time'],
+                          'location' : result['location'],
+                          'isDaytime' : result['isDaytime'],
+                          'flag' : result['flag'],
+                        };
+                      });
                     },
                     label: Text(
                         'Edit Location',
